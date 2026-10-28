@@ -205,12 +205,4 @@ The objective of this project is not only to create a registration page, but to 
 
 **Target students → Reach them through communities → Convert registrations → Encourage referrals → Track growth → Optimize the campaign**
 
----
 
-## Author
-
-**Swetha Pappula**
-
-B.Tech – Computer Science and Engineering (AI & ML)
-
-SRM University, Andhra Pradesh
