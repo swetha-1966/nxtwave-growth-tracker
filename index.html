@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Workshop Growth Tracker</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: #111827;
+            color: white;
+            padding: 16px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        nav button {
+            background: white;
+            color: #111827;
+            border: none;
+            padding: 9px 17px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #111827, #273449);
+            color: white;
+            padding: 70px 7%;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #374151;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 45px;
+            line-height: 1.15;
+            margin-bottom: 18px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #d1d5db;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .hero-btn {
+            background: white;
+            color: #111827;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* MAIN */
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 50px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #667085;
+        }
+
+        /* REGISTER CARD */
+        .register-card {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #111827;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 14px;
+            background: #111827;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .register-btn:hover {
+            background: #273449;
+        }
+
+        /* SUCCESS */
+        .success-box {
+            display: none;
+            max-width: 600px;
+            margin: 25px auto;
+            background: #ecfdf3;
+            border: 1px solid #a7f3d0;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .success-box h3 {
+            margin-bottom: 10px;
+            color: #065f46;
+        }
+
+        .ref-code {
+            display: inline-block;
+            margin: 15px 0;
+            padding: 12px 22px;
+            background: white;
+            border: 2px dashed #10b981;
+            border-radius: 8px;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .share-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* HOW IT WORKS */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .step {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .step-number {
+            width: 42px;
+            height: 42px;
+            margin: auto auto 15px;
+            border-radius: 50%;
+            background: #111827;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .step h3 {
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            color: #667085;
+            line-height: 1.5;
+        }
+
+        /* DASHBOARD */
+        #dashboard {
+            display: none;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .stat-card p {
+            color: #667085;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card h2 {
+            font-size: 30px;
+        }
+
+        /* PROGRESS */
+        .progress-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .progress-bg {
+            width: 100%;
+            height: 15px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #111827;
+            transition: 0.5s;
+        }
+
+        /* TABLE */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .table-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .table-card h3 {
+            margin-bottom: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 11px 5px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        th {
+            color: #667085;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #111827;
+            color: #d1d5db;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 800px) {
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .register-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+    <div class="logo">AI Workshop Growth Tracker</div>
+
+    <button onclick="showDashboard()">
+        Dashboard
+    </button>
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="badge">
+            FREE ONLINE WORKSHOP
+        </span>
+
+        <h1>
+            Build Your First AI Project in 60 Minutes
+        </h1>
+
+        <p>
+            Learn by building a practical AI project in just one hour.
+            Perfect for engineering students who want hands-on AI experience
+            and a stronger project profile.
+        </p>
+
+        <button class="hero-btn"
+                onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">
+            Register Free
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- REGISTRATION -->
+
+<section id="register" class="container">
+
+    <div class="section-title">
+
+        <h2>Reserve Your Free Seat</h2>
+
+        <p>
+            Register now and invite your friends using your referral code.
+        </p>
+
+    </div>
+
+
+    <div class="register-card">
+
+        <form onsubmit="registerStudent(event)">
+
+            <div class="form-group">
+
+                <label>Full Name</label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Email Address</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>College / University</label>
+
+                <input
+                    type="text"
+                    id="college"
+                    placeholder="Enter your college"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Referral Code (Optional)</label>
+
+                <input
+                    type="text"
+                    id="referral"
+                    placeholder="Example: AISH123"
+                >
+
+            </div>
+
+
+            <button class="register-btn" type="submit">
+
+                Register for Free Workshop
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- SUCCESS MESSAGE -->
+
+    <div class="success-box" id="successBox">
+
+        <h3>Registration Successful!</h3>
+
+        <p>
+            Your personal referral code is:
+        </p>
+
+        <div class="ref-code" id="refCode">
+            AI123
+        </div>
+
+        <p>
+            Share this code with your friends and help us reach
+            the 500-student goal.
+        </p>
+
+        <br>
+
+        <button class="share-btn" onclick="shareReferral()">
+            Share With Friends
+        </button>
+
+        <button class="share-btn"
+                onclick="copyCode()"
+                style="margin-left:8px;">
+            Copy Code
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section class="container">
+
+    <div class="section-title">
+
+        <h2>How the Referral Campaign Works</h2>
+
+        <p>
+            Students can help grow the workshop through referrals.
+        </p>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="step-number">1</div>
+
+            <h3>Register</h3>
+
+            <p>
+                Register for the free AI workshop and receive a unique
+                referral code.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">2</div>
+
+            <h3>Share</h3>
+
+            <p>
+                Share your referral code with friends, classmates,
+                college groups and communities.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">3</div>
+
+            <h3>Grow</h3>
+
+            <p>
+                Successful referrals increase the campaign registration
+                count toward the 500-student target.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="container">
+
+    <div class="section-title">
+
+        <h2>Growth Campaign Dashboard</h2>
+
+        <p>
+            Track workshop registration and referral performance.
+        </p>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <p>Total Registrations</p>
+
+            <h2 id="totalRegistrations">0</h2>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <p>Target</p>
+
+            <h2>500</h2>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <p>Referral Registrations</p>
+
+            <h2 id="referralRegistrations">0</h2>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <p>Active Referrers</p>
+
+            <h2 id="activeReferrers">0</h2>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROGRESS -->
+
+    <div class="progress-card">
+
+        <div class="progress-header">
+
+            <span>Progress Toward 500 Registrations</span>
+
+            <span id="progressText">0%</span>
+
+        </div>
+
+        <div class="progress-bg">
+
+            <div
+                class="progress-bar"
+                id="progressBar">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TABLES -->
+
+    <div class="dashboard-grid">
+
+
+        <!-- LEADERBOARD -->
+
+        <div class="table-card">
+
+            <h3>Top Referrers</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Name</th>
+
+                        <th>Referrals</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="leaderboard">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- RECENT -->
+
+        <div class="table-card">
+
+            <h3>Recent Registrations</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Name</th>
+
+                        <th>College</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="recentRegistrations">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <p>
+        AI Workshop Growth Tracker • Growth Challenge Prototype
+    </p>
+
+</footer>
+
+
+<script>
+
+    /* ---------------------------------
+       DATA STORAGE
+    ---------------------------------- */
+
+    const STORAGE_KEY = "nxtwave_growth_data";
+
+
+    function getData() {
+
+        return JSON.parse(
+            localStorage.getItem(STORAGE_KEY) || "[]"
+        );
+
+    }
+
+
+    function saveData(data) {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(data)
+        );
+
+    }
+
+
+    /* ---------------------------------
+       REFERRAL CODE
+    ---------------------------------- */
+
+    function generateReferralCode(name) {
+
+        let cleanName =
+            name.replace(/[^a-zA-Z]/g, "")
+                .toUpperCase();
+
+        let prefix =
+            cleanName.substring(0, 4);
+
+        let number =
+            Math.floor(100 + Math.random() * 900);
+
+        return "AI" + prefix + number;
+
+    }
+
+
+    /* ---------------------------------
+       REGISTER STUDENT
+    ---------------------------------- */
+
+    function registerStudent(event) {
+
+        event.preventDefault();
+
+
+        const name =
+            document.getElementById("name").value.trim();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const college =
+            document.getElementById("college").value.trim();
+
+        const referral =
+            document.getElementById("referral").value.trim().toUpperCase();
+
+
+        const data = getData();
+
+
+        /* Check duplicate email */
+
+        const existing =
+            data.find(
+                student =>
+                student.email.toLowerCase() === email.toLowerCase()
+            );
+
+
+        if (existing) {
+
+            alert("This email is already registered.");
+
+            return;
+
+        }
+
+
+        /* Generate code */
+
+        const newCode =
+            generateReferralCode(name);
+
+
+        const student = {
+
+            name: name,
+
+            email: email,
+
+            college: college,
+
+            referral: referral,
+
+            code: newCode,
+
+            date: new Date().toLocaleString()
+
+        };
+
+
+        data.push(student);
+
+        saveData(data);
+
+
+        /* Show success */
+
+        document.getElementById("refCode").innerText =
+            newCode;
+
+        document.getElementById("successBox").style.display =
+            "block";
+
+
+        /* Clear form */
+
+        document.querySelector("form").reset();
+
+
+        /* Update dashboard */
+
+        updateDashboard();
+
+
+        /* Scroll to success message */
+
+        document.getElementById("successBox")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+    }
+
+
+    /* ---------------------------------
+       DASHBOARD
+    ---------------------------------- */
+
+    function updateDashboard() {
+
+        const data = getData();
+
+
+        /* Total */
+
+        const total =
+            data.length;
+
+
+        document.getElementById(
+            "totalRegistrations"
+        ).innerText = total;
+
+
+        /* Referral registrations */
+
+        const referralRegistrations =
+            data.filter(
+                student =>
+                student.referral !== ""
+            ).length;
+
+
+        document.getElementById(
+            "referralRegistrations"
+        ).innerText =
+            referralRegistrations;
+
+
+        /* Active referrers */
+
+        const referrers = {};
+
+
+        data.forEach(student => {
+
+            if (student.referral !== "") {
+
+                referrers[student.referral] =
+                    (referrers[student.referral] || 0) + 1;
+
+            }
+
+        });
+
+
+        const activeReferrers =
+            Object.keys(referrers).length;
+
+
+        document.getElementById(
+            "activeReferrers"
+        ).innerText =
+            activeReferrers;
+
+
+        /* Progress */
+
+        const progress =
+            Math.min(
+                (total / 500) * 100,
+                100
+            );
+
+
+        document.getElementById(
+            "progressBar"
+        ).style.width =
+            progress + "%";
+
+
+        document.getElementById(
+            "progressText"
+        ).innerText =
+            Math.round(progress) + "%";
+
+
+        /* Leaderboard */
+
+        const leaderboard =
+            document.getElementById(
+                "leaderboard"
+            );
+
+
+        leaderboard.innerHTML = "";
+
+
+        const sortedReferrers =
+            Object.entries(referrers)
+                .sort(
+                    (a, b) =>
+                    b[1] - a[1]
+                );
+
+
+        sortedReferrers
+            .slice(0, 5)
+            .forEach(([code, count]) => {
+
+                const owner =
+                    data.find(
+                        student =>
+                        student.code === code
+                    );
+
+
+                const row =
+                    document.createElement("tr");
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${owner ? owner.name : code}
+                    </td>
+
+                    <td>
+                        ${count}
+                    </td>
+
+                `;
+
+
+                leaderboard.appendChild(row);
+
+            });
+
+
+        if (sortedReferrers.length === 0) {
+
+            leaderboard.innerHTML = `
+
+                <tr>
+
+                    <td colspan="2">
+                        No referrals yet
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+
+        /* Recent registrations */
+
+        const recent =
+            document.getElementById(
+                "recentRegistrations"
+            );
+
+
+        recent.innerHTML = "";
+
+
+        data.slice(-5)
+            .reverse()
+            .forEach(student => {
+
+                const row =
+                    document.createElement("tr");
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${student.name}
+                    </td>
+
+                    <td>
+                        ${student.college}
+                    </td>
+
+                `;
+
+
+                recent.appendChild(row);
+
+            });
+
+
+        if (data.length === 0) {
+
+            recent.innerHTML = `
+
+                <tr>
+
+                    <td colspan="2">
+                        No registrations yet
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+    }
+
+
+    /* ---------------------------------
+       SHOW DASHBOARD
+    ---------------------------------- */
+
+    function showDashboard() {
+
+        document.getElementById(
+            "dashboard"
+        ).style.display = "block";
+
+
+        updateDashboard();
+
+
+        document.getElementById(
+            "dashboard"
+        ).scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* ---------------------------------
+       COPY REFERRAL CODE
+    ---------------------------------- */
+
+    function copyCode() {
+
+        const code =
+            document.getElementById(
+                "refCode"
+            ).innerText;
+
+
+        navigator.clipboard.writeText(code);
+
+
+        alert(
+            "Referral code copied: " + code
+        );
+
+    }
+
+
+    /* ---------------------------------
+       SHARE REFERRAL
+    ---------------------------------- */
+
+    function shareReferral() {
+
+        const code =
+            document.getElementById(
+                "refCode"
+            ).innerText;
+
+
+        const message =
+            `Join the free "Build Your First AI Project in 60 Minutes" workshop. My referral code is ${code}.`;
+
+
+        if (
+            navigator.share
+        ) {
+
+            navigator.share({
+
+                title:
+                    "AI Workshop",
+
+                text:
+                    message
+
+            });
+
+        } else {
+
+            navigator.clipboard.writeText(
+                message
+            );
+
+
+            alert(
+                "Sharing message copied to clipboard."
+            );
+
+        }
+
+    }
+
+
+    
+
+    updateDashboard();
+
+</script>
+
+</body>
+</html>
